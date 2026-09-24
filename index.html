@@ -2,1210 +2,668 @@
 <html lang="id">
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>
-AIK Week 6 — Supabase Trial
-</title>
-
+<title>AIK Week 6 — Supabase Trial</title>
 
 <style>
 
 :root{
-
---navy:#153452;
---blue:#2f6fa5;
---gold:#b28734;
-
---ink:#23364b;
---muted:#69798b;
---line:#d8e0e7;
---paper:#fbfaf7;
-
---bad:#a2443f;
---ok:#24734f;
-
+  --navy:#153452;
+  --blue:#2f6fa5;
+  --gold:#b28734;
+  --ink:#23364b;
+  --muted:#69798b;
+  --line:#d8e0e7;
+  --paper:#fbfaf7;
+  --bad:#a2443f;
+  --ok:#24734f;
 }
-
 
 *{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
-
 
 html,
 body{
-
-margin:0;
-
-min-height:100%;
-
-font-family:
-Arial,
-Helvetica,
-sans-serif;
-
-color:
-var(--ink);
-
-background:
-linear-gradient(
-180deg,
-#f5f1e8,
-#fafafa 220px,
-#f6f7f8
-);
-
+  margin:0;
+  min-height:100%;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--ink);
+  background:
+    linear-gradient(
+      180deg,
+      #f5f1e8,
+      #fafafa 220px,
+      #f6f7f8
+    );
 }
-
 
 body.exam{
-
-user-select:none;
-
+  user-select:none;
 }
-
 
 .wrap{
-
-max-width:
-900px;
-
-margin:
-auto;
-
-padding:
-28px 18px 48px;
-
+  max-width:900px;
+  margin:auto;
+  padding:28px 18px 48px;
 }
-
 
 .card{
-
-background:
-var(--paper);
-
-border:
-1px solid #ded8cb;
-
-border-radius:
-22px;
-
-padding:
-30px;
-
-box-shadow:
-0 10px 30px
-rgba(30,48,66,.07);
-
+  background:var(--paper);
+  border:1px solid #ded8cb;
+  border-radius:22px;
+  padding:30px;
+  box-shadow:
+    0 10px 30px rgba(30,48,66,.07);
 }
-
 
 .eyebrow{
-
-font:
-700 13px Georgia,
-serif;
-
-letter-spacing:
-.16em;
-
-text-transform:
-uppercase;
-
-color:
-var(--gold);
-
+  font:700 13px Georgia,serif;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold);
 }
-
 
 h1,
 h2{
-
-font-family:
-Georgia,
-serif;
-
-color:
-var(--navy);
-
+  font-family:Georgia,serif;
+  color:var(--navy);
 }
-
 
 h1{
-
-font-size:
-clamp(
-34px,
-5vw,
-52px
-);
-
-line-height:
-1.08;
-
-margin:
-8px 0 14px;
-
+  font-size:clamp(34px,5vw,52px);
+  line-height:1.08;
+  margin:8px 0 14px;
 }
-
 
 .sub{
-
-font-size:
-18px;
-
-color:
-var(--muted);
-
-line-height:
-1.55;
-
+  font-size:18px;
+  color:var(--muted);
+  line-height:1.55;
 }
-
 
 .rule{
-
-height:
-2px;
-
-background:
-var(--gold);
-
-margin:
-22px 0;
-
+  height:2px;
+  background:var(--gold);
+  margin:22px 0;
 }
-
 
 .grid{
-
-display:
-grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:
-12px;
-
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
-
 
 .box{
-
-background:
-#fff;
-
-border:
-1px solid var(--line);
-
-border-radius:
-12px;
-
-padding:
-15px;
-
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:15px;
 }
-
 
 .box b{
-
-display:
-block;
-
-color:
-var(--navy);
-
-margin-bottom:
-5px;
-
+  display:block;
+  color:var(--navy);
+  margin-bottom:5px;
 }
-
 
 .box span,
 .small{
-
-font-size:
-14px;
-
-color:
-var(--muted);
-
-line-height:
-1.45;
-
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.45;
 }
-
 
 .form{
-
-display:
-grid;
-
-grid-template-columns:
-1fr 1fr;
-
-gap:
-12px;
-
-margin:
-18px 0;
-
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:18px 0;
 }
-
 
 label{
-
-font-size:
-13px;
-
-font-weight:
-700;
-
-color:
-var(--navy);
-
+  font-size:13px;
+  font-weight:700;
+  color:var(--navy);
 }
-
 
 input[type=text]{
-
-width:
-100%;
-
-margin-top:
-7px;
-
-padding:
-12px;
-
-border:
-1px solid var(--line);
-
-border-radius:
-9px;
-
-font-size:
-16px;
-
-background:
-#fff;
-
+  width:100%;
+  margin-top:7px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  font-size:16px;
+  background:#fff;
 }
-
 
 .check{
-
-display:
-flex;
-
-gap:
-10px;
-
-align-items:
-flex-start;
-
-margin:
-16px 0;
-
-color:
-var(--muted);
-
-line-height:
-1.45;
-
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:16px 0;
+  color:var(--muted);
+  line-height:1.45;
 }
-
 
 .btn{
-
-border:
-1px solid var(--line);
-
-background:
-#fff;
-
-color:
-var(--navy);
-
-padding:
-11px 17px;
-
-border-radius:
-10px;
-
-font-weight:
-700;
-
-cursor:
-pointer;
-
-font-size:
-15px;
-
-min-height:
-44px;
-
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--navy);
+  padding:11px 17px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  font-size:15px;
+  min-height:44px;
 }
-
 
 .btn.primary{
-
-background:
-var(--navy);
-
-color:
-#fff;
-
-border-color:
-var(--navy);
-
+  background:var(--navy);
+  color:#fff;
+  border-color:var(--navy);
 }
-
 
 .btn:disabled{
-
-opacity:
-.45;
-
-cursor:
-not-allowed;
-
+  opacity:.45;
+  cursor:not-allowed;
 }
-
 
 .hidden{
-
-display:
-none !important;
-
+  display:none !important;
 }
-
 
 .top{
-
-display:
-flex;
-
-justify-content:
-space-between;
-
-gap:
-12px;
-
-flex-wrap:
-wrap;
-
-align-items:
-center;
-
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
 }
-
 
 .timer{
-
-font:
-700 28px Georgia,
-serif;
-
-color:
-var(--navy);
-
+  font:700 28px Georgia,serif;
+  color:var(--navy);
 }
-
 
 .status{
-
-font-size:
-14px;
-
-color:
-var(--muted);
-
+  font-size:14px;
+  color:var(--muted);
 }
-
 
 .progress{
-
-height:
-8px;
-
-background:
-#edf1f4;
-
-border-radius:
-999px;
-
-overflow:
-hidden;
-
-margin:
-14px 0 22px;
-
+  height:8px;
+  background:#edf1f4;
+  border-radius:999px;
+  overflow:hidden;
+  margin:14px 0 22px;
 }
-
 
 .progress div{
-
-height:
-100%;
-
-background:
-var(--blue);
-
-width:
-0;
-
-transition:
-.2s;
-
+  height:100%;
+  background:var(--blue);
+  width:0;
+  transition:.2s;
 }
-
 
 .qmeta{
-
-font-size:
-13px;
-
-font-weight:
-700;
-
-letter-spacing:
-.08em;
-
-text-transform:
-uppercase;
-
-color:
-var(--muted);
-
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
 }
-
 
 .q{
-
-font:
-24px/1.45 Georgia,
-serif;
-
-color:
-var(--navy);
-
-margin:
-8px 0 18px;
-
+  font:24px/1.45 Georgia,serif;
+  color:var(--navy);
+  margin:8px 0 18px;
 }
-
 
 .opts{
-
-display:
-grid;
-
-gap:
-10px;
-
+  display:grid;
+  gap:10px;
 }
-
 
 .opt{
-
-display:
-flex;
-
-gap:
-12px;
-
-width:
-100%;
-
-text-align:
-left;
-
-background:
-#fff;
-
-border:
-1px solid var(--line);
-
-padding:
-14px 15px;
-
-border-radius:
-11px;
-
-cursor:
-pointer;
-
-font-size:
-16px;
-
-color:
-var(--ink);
-
+  display:flex;
+  gap:12px;
+  width:100%;
+  text-align:left;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:14px 15px;
+  border-radius:11px;
+  cursor:pointer;
+  font-size:16px;
+  color:var(--ink);
 }
-
 
 .opt:hover{
-
-border-color:
-#9fb4c6;
-
-background:
-#fafcfd;
-
+  border-color:#9fb4c6;
+  background:#fafcfd;
 }
-
 
 .opt.sel{
-
-border-color:
-var(--navy);
-
-background:
-#edf3f8;
-
+  border-color:var(--navy);
+  background:#edf3f8;
 }
-
 
 .letter{
-
-font-weight:
-700;
-
-color:
-var(--navy);
-
-min-width:
-20px;
-
+  font-weight:700;
+  color:var(--navy);
+  min-width:20px;
 }
-
 
 .actions{
-
-display:
-flex;
-
-justify-content:
-flex-end;
-
-margin-top:
-20px;
-
+  display:flex;
+  justify-content:flex-end;
+  margin-top:20px;
 }
-
 
 textarea{
-
-width:
-100%;
-
-min-height:
-230px;
-
-resize:
-vertical;
-
-border:
-1px solid var(--line);
-
-border-radius:
-12px;
-
-padding:
-14px;
-
-outline:
-none;
-
-font:
-16px/1.55 Arial,
-Helvetica,
-sans-serif;
-
-color:
-var(--ink);
-
+  width:100%;
+  min-height:230px;
+  resize:vertical;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  outline:none;
+  font:16px/1.55 Arial,Helvetica,sans-serif;
+  color:var(--ink);
 }
-
 
 .wordcount{
-
-text-align:
-right;
-
-font-size:
-13px;
-
-color:
-var(--muted);
-
-margin-top:
-7px;
-
+  text-align:right;
+  font-size:13px;
+  color:var(--muted);
+  margin-top:7px;
 }
-
 
 .overlay{
-
-position:
-fixed;
-
-inset:
-0;
-
-background:
-rgba(10,24,38,.72);
-
-display:
-flex;
-
-align-items:
-center;
-
-justify-content:
-center;
-
-padding:
-20px;
-
-z-index:
-10;
-
+  position:fixed;
+  inset:0;
+  background:rgba(10,24,38,.72);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:10;
 }
-
 
 .warn{
-
-max-width:
-520px;
-
-background:
-#fff;
-
-border-radius:
-18px;
-
-padding:
-28px;
-
-text-align:
-center;
-
+  max-width:520px;
+  background:#fff;
+  border-radius:18px;
+  padding:28px;
+  text-align:center;
 }
-
 
 .result{
-
-text-align:
-center;
-
+  text-align:center;
 }
-
 
 .score{
-
-font:
-700 52px Georgia,
-serif;
-
-color:
-var(--navy);
-
-margin:
-12px 0;
-
+  font:700 52px Georgia,serif;
+  color:var(--navy);
+  margin:12px 0;
 }
-
 
 .badge{
-
-display:
-inline-block;
-
-background:
-#eef3f8;
-
-color:
-var(--navy);
-
-border-radius:
-999px;
-
-padding:
-7px 10px;
-
-font-size:
-13px;
-
-font-weight:
-700;
-
+  display:inline-block;
+  background:#eef3f8;
+  color:var(--navy);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:13px;
+  font-weight:700;
 }
-
 
 .error{
-
-color:
-var(--bad);
-
-font-weight:
-700;
-
+  color:var(--bad);
+  font-weight:700;
 }
-
 
 .success{
-
-color:
-var(--ok);
-
-font-weight:
-700;
-
+  color:var(--ok);
+  font-weight:700;
 }
 
+@media(max-width:700px){
 
-@media(
-max-width:700px
-){
+  .grid,
+  .form{
+    grid-template-columns:1fr;
+  }
 
-.grid,
-.form{
+  .card{
+    padding:22px;
+  }
 
-grid-template-columns:
-1fr;
-
-}
-
-
-.card{
-
-padding:
-22px;
-
-}
-
-
-.q{
-
-font-size:
-21px;
-
-}
+  .q{
+    font-size:21px;
+  }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div class="wrap">
 
 
-<!-- ==============================
+<!-- =========================
      START SCREEN
-============================== -->
-
+========================= -->
 
 <section
-class="card"
-id="start">
+  class="card"
+  id="start"
+>
 
+  <div class="eyebrow">
+    ALAT INDUSTRI KIMIA • SUPABASE TRIAL
+  </div>
 
-<div class="eyebrow">
+  <h1>
+    Evaporation &amp; Evaporator Equipment
+  </h1>
 
-ALAT INDUSTRI KIMIA • SUPABASE TRIAL
+  <p class="sub">
+    Prototype backend-secured:
+    2 PG acak + 1 uraian.
+    Kunci jawaban tidak berada di file HTML.
+  </p>
 
-</div>
+  <div class="rule"></div>
 
 
-<h1>
+  <div class="grid">
 
-Evaporation &amp; Evaporator Equipment
+    <div class="box">
 
-</h1>
+      <b>
+        2 PG Acak
+      </b>
 
+      <span>
+        Soal diminta dari database
+        saat trial dimulai.
+      </span>
 
-<p class="sub">
+    </div>
 
-Prototype backend-secured:
-2 PG acak + 1 uraian.
-Kunci jawaban tidak berada di file HTML.
 
-</p>
+    <div class="box">
 
+      <b>
+        1 Uraian Acak
+      </b>
 
-<div class="rule"></div>
+      <span>
+        Jawaban tersimpan di Supabase.
+      </span>
 
+    </div>
 
-<div class="grid">
 
+    <div class="box">
 
-<div class="box">
+      <b>
+        10 Menit
+      </b>
 
-<b>
+      <span>
+        Pindah tab ke-3 memicu submit.
+      </span>
 
-2 PG Acak
+    </div>
 
-</b>
+  </div>
 
-<span>
 
-Soal diminta dari database
-saat trial dimulai.
+  <div class="form">
 
-</span>
+    <label>
 
-</div>
+      Nama Mahasiswa
 
+      <input
+        id="name"
+        type="text"
+        autocomplete="off"
+        placeholder="Nama lengkap"
+      >
 
+    </label>
 
-<div class="box">
 
-<b>
+    <label>
 
-1 Uraian Acak
+      NPM
 
-</b>
+      <input
+        id="npm"
+        type="text"
+        autocomplete="off"
+        placeholder="NPM"
+      >
 
-<span>
+    </label>
 
-Jawaban tersimpan di Supabase.
+  </div>
 
-</span>
 
-</div>
+  <label class="check">
 
-
-
-<div class="box">
-
-<b>
-
-10 Menit
-
-</b>
-
-<span>
-
-Pindah tab ke-3
-memicu submit.
-
-</span>
-
-</div>
-
-
-</div>
-
-
-
-<div class="form">
-
-
-<label>
-
-Nama Mahasiswa
-
-<input
-id="name"
-type="text"
-autocomplete="off"
-placeholder="Nama lengkap">
-
-</label>
-
-
-
-<label>
-
-NPM
-
-<input
-id="npm"
-type="text"
-autocomplete="off"
-placeholder="NPM">
-
-</label>
-
-
-</div>
-
-
-
-<label class="check">
-
-
-<input
-id="agree"
-type="checkbox">
-
-
-<span>
-
-Saya memahami bahwa setelah menekan Next
-saya tidak dapat kembali ke soal sebelumnya
-dan perpindahan tab akan tercatat.
-
-</span>
-
-
-</label>
-
-
-
-<button
-id="startBtn"
-class="btn primary"
-disabled>
-
-Mulai Trial
-
-</button>
-
-
-<p
-id="startError"
-class="error">
-
-</p>
-
+    <input
+      id="agree"
+      type="checkbox"
+    >
+
+    <span>
+      Saya memahami bahwa setelah menekan Next
+      saya tidak dapat kembali ke soal sebelumnya
+      dan perpindahan tab akan tercatat.
+    </span>
+
+  </label>
+
+
+  <button
+    id="startBtn"
+    class="btn primary"
+    disabled
+  >
+    Mulai Trial
+  </button>
+
+
+  <p
+    id="startError"
+    class="error"
+  ></p>
 
 </section>
 
 
 
-<!-- ==============================
-     EXAM
-============================== -->
-
+<!-- =========================
+     EXAM SCREEN
+========================= -->
 
 <section
-class="card hidden"
-id="exam">
+  class="card hidden"
+  id="exam"
+>
 
+  <div class="top">
 
-<div class="top">
+    <div>
 
+      <div class="eyebrow">
+        WEEK 6 • EXAM MODE
+      </div>
 
-<div>
+      <div
+        id="student"
+        class="status"
+      ></div>
 
+    </div>
 
-<div class="eyebrow">
 
-WEEK 6 • EXAM MODE
+    <div style="text-align:right">
 
-</div>
+      <div
+        id="timer"
+        class="timer"
+      >
+        10:00
+      </div>
 
+      <div class="status">
 
-<div
-id="student"
-class="status">
+        Pindah tab:
 
-</div>
+        <b id="viol">
+          0
+        </b>
 
+        /3
 
-</div>
+      </div>
 
+    </div>
 
+  </div>
 
-<div
-style="text-align:right">
 
+  <div class="progress">
 
-<div
-id="timer"
-class="timer">
+    <div id="bar"></div>
 
-10:00
+  </div>
 
-</div>
 
+  <div
+    id="qmeta"
+    class="qmeta"
+  ></div>
 
-<div class="status">
 
-Pindah tab:
+  <div
+    id="qtext"
+    class="q"
+  ></div>
 
-<b id="viol">
 
-0
+  <div id="mcqArea">
 
-</b>
+    <div
+      id="opts"
+      class="opts"
+    ></div>
 
-/3
+  </div>
 
-</div>
 
+  <div
+    id="essayArea"
+    class="hidden"
+  >
 
-</div>
+    <textarea
+      id="essayInput"
+      placeholder="Tuliskan jawaban Anda di sini..."
+    ></textarea>
 
+    <div class="wordcount">
 
-</div>
+      <span id="wordCount">
+        0
+      </span>
 
+      kata
 
+    </div>
 
-<div class="progress">
+  </div>
 
-<div id="bar"></div>
 
-</div>
+  <p
+    id="examError"
+    class="error"
+  ></p>
 
 
+  <div class="actions">
 
-<div
-id="qmeta"
-class="qmeta">
+    <button
+      id="next"
+      class="btn primary"
+      disabled
+    >
+      Soal Berikutnya →
+    </button>
 
-</div>
-
-
-
-<div
-id="qtext"
-class="q">
-
-</div>
-
-
-
-<div id="mcqArea">
-
-
-<div
-id="opts"
-class="opts">
-
-</div>
-
-
-</div>
-
-
-
-<div
-id="essayArea"
-class="hidden">
-
-
-<textarea
-id="essayInput"
-placeholder="Tuliskan jawaban Anda di sini...">
-
-</textarea>
-
-
-<div class="wordcount">
-
-<span id="wordCount">
-
-0
-
-</span>
-
-kata
-
-</div>
-
-
-</div>
-
-
-
-<p
-id="examError"
-class="error">
-
-</p>
-
-
-
-<div class="actions">
-
-
-<button
-id="next"
-class="btn primary"
-disabled>
-
-Soal Berikutnya →
-
-</button>
-
-
-</div>
-
+  </div>
 
 </section>
 
 
 
-<!-- ==============================
-     RESULT
-============================== -->
-
+<!-- =========================
+     RESULT SCREEN
+========================= -->
 
 <section
-class="card hidden result"
-id="result">
+  class="card hidden result"
+  id="result"
+>
+
+  <div class="eyebrow">
+    SUBMISSION RECEIVED
+  </div>
+
+  <h2>
+    Trial Selesai
+  </h2>
 
 
-<div class="eyebrow">
-
-SUBMISSION RECEIVED
-
-</div>
-
-
-<h2>
-
-Trial Selesai
-
-</h2>
+  <div
+    id="score"
+    class="score"
+  ></div>
 
 
-<div
-id="score"
-class="score">
-
-</div>
-
-
-<div
-id="submissionId"
-class="badge">
-
-</div>
+  <div
+    id="submissionId"
+    class="badge"
+  ></div>
 
 
-<p
-id="resultMsg"
-class="success">
+  <p
+    id="resultMsg"
+    class="success"
+  ></p>
 
-</p>
 
+  <p class="small">
 
-<p class="small">
+    Skor PG ditampilkan pada trial
+    untuk memastikan grading berjalan
+    melalui database.
 
-Skor PG ditampilkan pada trial
-untuk membuktikan grading terjadi
-di database.
+    Pada versi final,
+    skor dapat disembunyikan dari mahasiswa.
 
-Pada versi final,
-skor ini bisa disembunyikan
-dari mahasiswa.
-
-</p>
-
+  </p>
 
 </section>
 
@@ -1214,42 +672,31 @@ dari mahasiswa.
 
 
 
-<!-- ==============================
+<!-- =========================
      TAB WARNING
-============================== -->
-
+========================= -->
 
 <div
-id="overlay"
-class="overlay hidden">
+  id="overlay"
+  class="overlay hidden"
+>
 
+  <div class="warn">
 
-<div class="warn">
+    <h2>
+      Perpindahan Tab Terdeteksi
+    </h2>
 
+    <p id="warnText"></p>
 
-<h2>
+    <button
+      id="backBtn"
+      class="btn primary"
+    >
+      Kembali ke Kuis
+    </button>
 
-Perpindahan Tab Terdeteksi
-
-</h2>
-
-
-<p id="warnText">
-
-</p>
-
-
-<button
-id="backBtn"
-class="btn primary">
-
-Kembali ke Kuis
-
-</button>
-
-
-</div>
-
+  </div>
 
 </div>
 
@@ -1257,1010 +704,770 @@ Kembali ke Kuis
 
 <script>
 
-
-/* =========================================
+/* ==================================================
    SUPABASE CONFIG
 
-   Publishable key memang boleh
-   berada di frontend.
-
-   JANGAN gunakan secret/service_role key.
-========================================= */
-
+   Publishable Key boleh berada di frontend.
+   JANGAN gunakan Secret Key atau Service Role Key.
+================================================== */
 
 const SUPABASE_URL =
-"https://ofnfcojkwlojvjiuaivh.supabase.co";
+  "https://ofnfcojkwlojvjiuaivh.supabase.co";
 
 
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_176X2v4_F8xN1bL-ATPjdg_joLsgsRi";
+  "sb_publishable_176X2v4_F8xN1bL-ATPjdg_joLsgsRi";
 
 
 
-/* =========================================
+/* ==================================================
    EXAM CONFIG
-========================================= */
-
+================================================== */
 
 const CFG = {
-
-minutes:10,
-
-maxViol:3
-
+  minutes:10,
+  maxViol:3
 };
 
 
 
-const $ =
-
-id =>
-document.getElementById(
-id
-);
+const $ = id =>
+  document.getElementById(id);
 
 
 
-let attemptId =
-null;
+let attemptId = null;
 
+let items = [];
 
-let items =
-[];
+let idx = 0;
 
+let pick = null;
 
-let idx =
-0;
+let pgAnswers = [];
 
+let essayAnswer = "";
 
-let pick =
-null;
+let viol = 0;
 
+let left = CFG.minutes * 60;
 
-let pgAnswers =
-[];
+let tick = null;
 
+let started = false;
 
-let essayAnswer =
-"";
+let done = false;
 
-
-let viol =
-0;
-
-
-let left =
-CFG.minutes * 60;
-
-
-let tick =
-null;
-
-
-let started =
-false;
-
-
-let done =
-false;
-
-
-let pendingWarn =
-false;
+let pendingWarn = false;
 
 
 
-/* =========================================
+/* ==================================================
    SHUFFLE
-========================================= */
+================================================== */
 
+function shuffle(array){
 
-function shuffle(a){
+  const a = [...array];
 
+  for(
+    let i = a.length - 1;
+    i > 0;
+    i--
+  ){
 
-a = [
-...a
-];
+    const j =
+      Math.floor(
+        Math.random() * (i + 1)
+      );
 
+    [
+      a[i],
+      a[j]
+    ] = [
+      a[j],
+      a[i]
+    ];
 
-for(
+  }
 
-let i =
-a.length - 1;
-
-i > 0;
-
-i--
-
-){
-
-
-const j =
-
-Math.floor(
-
-Math.random() *
-(i + 1)
-
-);
-
-
-[
-a[i],
-a[j]
-
-] = [
-
-a[j],
-a[i]
-
-];
-
-
-}
-
-
-return a;
-
+  return a;
 
 }
 
 
 
-/* =========================================
-   CHECK CONFIG
-========================================= */
-
+/* ==================================================
+   CHECK SUPABASE CONFIG
+================================================== */
 
 function readyConfig(){
 
-
-return
-
-SUPABASE_URL
-.startsWith(
-"https://"
-)
-
-&&
-
-!SUPABASE_URL
-.includes(
-"PASTE_"
-)
-
-&&
-
-SUPABASE_PUBLISHABLE_KEY
-.length > 20
-
-&&
-
-!SUPABASE_PUBLISHABLE_KEY
-.includes(
-"PASTE_"
-);
-
+  return (
+    SUPABASE_URL.startsWith("https://")
+    &&
+    !SUPABASE_URL.includes("PASTE_")
+    &&
+    SUPABASE_PUBLISHABLE_KEY.length > 20
+    &&
+    !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_")
+  );
 
 }
 
 
 
-/* =========================================
+/* ==================================================
    SUPABASE RPC
-========================================= */
-
+================================================== */
 
 async function rpc(
-
-fn,
-body
-
+  functionName,
+  body
 ){
 
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/${functionName}`,
+    {
 
-const res =
+      method:"POST",
 
-await fetch(
+      headers:{
 
-`${SUPABASE_URL}/rest/v1/rpc/${fn}`,
+        "Content-Type":
+          "application/json",
 
-{
+        "apikey":
+          SUPABASE_PUBLISHABLE_KEY,
 
+        "Authorization":
+          `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
 
-method:
-"POST",
+      },
 
+      body:
+        JSON.stringify(body)
 
-headers:{
-
-"Content-Type":
-"application/json",
-
-"apikey":
-SUPABASE_PUBLISHABLE_KEY,
-
-"Authorization":
-`Bearer ${SUPABASE_PUBLISHABLE_KEY}`
-
-},
+    }
+  );
 
 
-body:
-JSON.stringify(
-body
-)
+  let data = null;
 
 
-}
+  try{
 
-);
+    data =
+      await response.json();
 
+  }
 
+  catch(error){
 
-let data =
-null;
+    data = null;
 
-
-try{
-
-data =
-await res.json();
-
-}
-
-catch(e){
-
-}
+  }
 
 
+  if(!response.ok){
 
-if(
+    throw new Error(
+      data?.message
+      ||
+      data?.error
+      ||
+      `HTTP ${response.status}`
+    );
 
-!res.ok
-
-){
-
-
-throw new Error(
-
-data?.message
-
-||
-
-data?.error
-
-||
-
-`HTTP ${res.status}`
-
-);
+  }
 
 
-}
-
-
-return data;
-
+  return data;
 
 }
 
 
 
-/* =========================================
-   START FORM
-========================================= */
-
+/* ==================================================
+   VALIDASI FORM
+================================================== */
 
 function canStart(){
 
+  const name =
+    $("name").value.trim();
 
-$("startBtn").disabled =
+  const npm =
+    $("npm").value.trim();
 
-!(
 
-$("name").value.trim()
-
-&&
-
-$("npm").value.trim()
-
-&&
-
-$("agree").checked
-
-);
-
+  $("startBtn").disabled =
+    !(
+      name.length >= 2
+      &&
+      npm.length >= 3
+      &&
+      $("agree").checked
+    );
 
 }
 
 
 
-[
-"name",
-"npm"
-
-].forEach(
-
-id =>
-
-$(id)
+$("name")
 .addEventListener(
-
-"input",
-canStart
-
-)
-
+  "input",
+  canStart
 );
 
+
+$("npm")
+.addEventListener(
+  "input",
+  canStart
+);
 
 
 $("agree")
 .addEventListener(
-
-"change",
-canStart
-
+  "change",
+  canStart
 );
 
 
 
-/* =========================================
-   START QUIZ
-========================================= */
-
+/* ==================================================
+   START EXAM
+================================================== */
 
 $("startBtn").onclick =
-
 async ()=>{
 
 
-$("startError").textContent =
-"";
+  $("startError").textContent =
+    "";
 
 
+  if(!readyConfig()){
 
-if(
+    $("startError").textContent =
+      "Konfigurasi database belum tersedia.";
 
-!readyConfig()
+    return;
 
-){
-
-
-$("startError").textContent =
-
-"SUPABASE_URL / PUBLISHABLE KEY belum diisi.";
+  }
 
 
-return;
+  const studentName =
+    $("name").value.trim();
 
 
-}
+  const studentNpm =
+    $("npm").value.trim();
 
 
+  if(studentName.length < 2){
 
-$("startBtn").disabled =
-true;
+    $("startError").textContent =
+      "Nama mahasiswa belum valid.";
 
+    return;
 
-$("startBtn").textContent =
-
-"Mengambil soal…";
-
-
-
-try{
+  }
 
 
-const data =
+  if(studentNpm.length < 3){
 
-await rpc(
+    $("startError").textContent =
+      "NPM minimal 3 karakter.";
 
-"start_week6_trial",
+    return;
 
-{
-
-p_name:
-$("name").value.trim(),
-
-p_npm:
-$("npm").value.trim()
-
-}
-
-);
+  }
 
 
-
-attemptId =
-
-data.attempt_id;
+  $("startBtn").disabled =
+    true;
 
 
-
-const mcqs =
-
-(
-data.questions || []
-)
-
-.map(
-
-q => ({
-
-type:
-"mcq",
-
-id:
-q.id,
-
-topic:
-q.topic,
-
-question:
-q.question,
-
-options:
-shuffle(
-q.options || []
-)
-
-})
-
-);
+  $("startBtn").textContent =
+    "Mengambil soal…";
 
 
+  try{
 
-const essay = {
 
-type:
-"essay",
+    const data =
+      await rpc(
+        "start_week6_trial",
+        {
 
-id:
-data.essay.id,
+          p_name:
+            studentName,
 
-topic:
-data.essay.topic,
+          p_npm:
+            studentNpm
 
-question:
-data.essay.question
+        }
+      );
+
+
+    attemptId =
+      data.attempt_id;
+
+
+    const mcqs =
+      (data.questions || [])
+      .map(
+        q => ({
+
+          type:
+            "mcq",
+
+          id:
+            q.id,
+
+          topic:
+            q.topic,
+
+          question:
+            q.question,
+
+          options:
+            shuffle(
+              q.options || []
+            )
+
+        })
+      );
+
+
+    if(
+      !data.essay
+      ||
+      !data.essay.id
+    ){
+
+      throw new Error(
+        "Soal uraian tidak ditemukan."
+      );
+
+    }
+
+
+    const essay = {
+
+      type:
+        "essay",
+
+      id:
+        data.essay.id,
+
+      topic:
+        data.essay.topic,
+
+      question:
+        data.essay.question
+
+    };
+
+
+    items = [
+      ...mcqs,
+      essay
+    ];
+
+
+    if(items.length < 3){
+
+      throw new Error(
+        "Bank soal belum lengkap."
+      );
+
+    }
+
+
+    idx = 0;
+
+    pick = null;
+
+    pgAnswers = [];
+
+    essayAnswer = "";
+
+    viol = 0;
+
+    left =
+      CFG.minutes * 60;
+
+    started = true;
+
+    done = false;
+
+    pendingWarn = false;
+
+
+    document
+      .body
+      .classList
+      .add("exam");
+
+
+    $("start")
+      .classList
+      .add("hidden");
+
+
+    $("exam")
+      .classList
+      .remove("hidden");
+
+
+    $("student").textContent =
+      studentName
+      +
+      " • "
+      +
+      studentNpm;
+
+
+    $("viol").textContent =
+      viol;
+
+
+    try{
+
+      await document
+        .documentElement
+        .requestFullscreen?.();
+
+    }
+
+    catch(error){
+
+      // fullscreen bersifat opsional
+
+    }
+
+
+    render();
+
+
+    clock();
+
+
+    tick =
+      setInterval(
+        ()=>{
+
+          left--;
+
+          clock();
+
+
+          if(left <= 0){
+
+            finish(
+              "Waktu habis — submit otomatis"
+            );
+
+          }
+
+        },
+        1000
+      );
+
+
+  }
+
+  catch(error){
+
+
+    $("startError").textContent =
+      "Gagal memulai trial: "
+      +
+      error.message;
+
+
+    $("startBtn").disabled =
+      false;
+
+
+    $("startBtn").textContent =
+      "Mulai Trial";
+
+  }
 
 };
 
 
 
-items = [
-
-...mcqs,
-
-essay
-
-];
-
-
-
-idx =
-0;
-
-
-pick =
-null;
-
-
-pgAnswers =
-[];
-
-
-essayAnswer =
-"";
-
-
-viol =
-0;
-
-
-left =
-CFG.minutes * 60;
-
-
-started =
-true;
-
-
-done =
-false;
-
-
-
-document
-.body
-.classList
-.add(
-"exam"
-);
-
-
-
-$("start")
-.classList
-.add(
-"hidden"
-);
-
-
-
-$("exam")
-.classList
-.remove(
-"hidden"
-);
-
-
-
-$("student").textContent =
-
-$("name").value.trim()
-
-+
-
-" • "
-
-+
-
-$("npm").value.trim();
-
-
-
-$("viol").textContent =
-viol;
-
-
-
-try{
-
-
-await document
-.documentElement
-.requestFullscreen?.();
-
-
-}
-
-catch(e){
-
-}
-
-
-
-render();
-
-
-clock();
-
-
-
-tick =
-
-setInterval(
-
-()=>{
-
-
-left--;
-
-
-clock();
-
-
-
-if(
-
-left <= 0
-
-){
-
-
-finish(
-
-"Waktu habis — submit otomatis"
-
-);
-
-
-}
-
-
-},
-
-1000
-
-);
-
-
-
-}
-
-catch(err){
-
-
-$("startError").textContent =
-
-"Gagal memulai trial: "
-
-+
-
-err.message;
-
-
-
-$("startBtn").disabled =
-false;
-
-
-$("startBtn").textContent =
-
-"Mulai Trial";
-
-
-}
-
-
-};
-
-
-
-/* =========================================
+/* ==================================================
    TIMER
-========================================= */
-
+================================================== */
 
 function clock(){
 
-
-const m =
-
-Math.floor(
-
-Math.max(
-0,
-left
-)
-
-/ 60
-
-);
+  const safeTime =
+    Math.max(
+      0,
+      left
+    );
 
 
-
-const s =
-
-Math.max(
-0,
-left
-)
-
-% 60;
+  const minutes =
+    Math.floor(
+      safeTime / 60
+    );
 
 
-
-$("timer").textContent =
-
-String(m)
-.padStart(
-2,
-"0"
-)
-
-+
-
-":"
-
-+
-
-String(s)
-.padStart(
-2,
-"0"
-);
+  const seconds =
+    safeTime % 60;
 
 
-
-if(
-
-left <= 60
-
-){
-
-
-$("timer").style.color =
-
-"var(--bad)";
+  $("timer").textContent =
+    String(minutes)
+      .padStart(2,"0")
+    +
+    ":"
+    +
+    String(seconds)
+      .padStart(2,"0");
 
 
-}
+  if(left <= 60){
 
+    $("timer").style.color =
+      "var(--bad)";
+
+  }
 
 }
 
 
 
-/* =========================================
+/* ==================================================
    RENDER QUESTION
-========================================= */
-
+================================================== */
 
 function render(){
 
+  pick = null;
 
-pick =
-null;
 
+  $("next").disabled =
+    true;
 
-$("next").disabled =
-true;
 
+  $("examError").textContent =
+    "";
 
-$("examError").textContent =
-"";
 
+  const item =
+    items[idx];
 
 
-const item =
+  if(!item){
 
-items[
-idx
-];
+    $("examError").textContent =
+      "Soal tidak ditemukan.";
 
+    return;
 
+  }
 
-$("qmeta").textContent =
 
-`Soal ${idx + 1} dari ${items.length} • ${item.topic}`;
+  $("qmeta").textContent =
+    `Soal ${idx + 1} dari ${items.length} • ${item.topic}`;
 
 
+  $("qtext").textContent =
+    item.question;
 
-$("qtext").textContent =
 
-item.question;
+  $("bar").style.width =
+    (
+      (
+        idx /
+        items.length
+      )
+      *
+      100
+    )
+    +
+    "%";
 
 
+  if(
+    item.type ===
+    "mcq"
+  ){
 
-$("bar").style.width =
 
-(
-idx /
-items.length *
-100
+    $("mcqArea")
+      .classList
+      .remove("hidden");
 
-)
 
-+
+    $("essayArea")
+      .classList
+      .add("hidden");
 
-"%";
 
+    $("opts").innerHTML =
+      "";
 
 
-if(
+    item.options
+    .forEach(
+      (
+        option,
+        optionIndex
+      )=>{
 
-item.type ===
-"mcq"
 
-){
+        const button =
+          document.createElement(
+            "button"
+          );
 
 
-$("mcqArea")
-.classList
-.remove(
-"hidden"
-);
+        button.className =
+          "opt";
 
 
+        button.type =
+          "button";
 
-$("essayArea")
-.classList
-.add(
-"hidden"
-);
 
+        button.innerHTML =
+        `
+          <span class="letter">
+            ${String.fromCharCode(65 + optionIndex)}.
+          </span>
 
+          <span>
+            ${option}
+          </span>
+        `;
 
-$("opts").innerHTML =
-"";
 
+        button.onclick =
+        ()=>{
 
 
-item.options
-.forEach(
+          pick =
+            optionIndex;
 
-(
-option,
-k
-)=>{
 
+          [
+            ...$("opts").children
+          ]
+          .forEach(
+            element =>
+              element
+                .classList
+                .remove("sel")
+          );
 
-const b =
 
-document.createElement(
-"button"
-);
+          button
+            .classList
+            .add("sel");
 
 
+          $("next").disabled =
+            false;
 
-b.className =
-"opt";
+        };
 
 
-b.type =
-"button";
+        $("opts")
+          .appendChild(
+            button
+          );
 
+      }
+    );
 
 
-b.innerHTML = `
+  }
 
-<span class="letter">
+  else{
 
-${String.fromCharCode(
-65 + k
-)}.
 
-</span>
+    $("mcqArea")
+      .classList
+      .add("hidden");
 
-<span>
 
-${option}
+    $("essayArea")
+      .classList
+      .remove("hidden");
 
-</span>
 
-`;
+    $("essayInput").value =
+      essayAnswer;
 
 
+    updateWordCount();
 
-b.onclick =
 
-()=>{
+    $("next").disabled =
+      !essayAnswer.trim();
 
 
-pick =
-k;
+    $("essayInput")
+      .focus();
 
+  }
 
 
-[
-...$("opts").children
+  if(
+    idx ===
+    items.length - 1
+  ){
 
-].forEach(
+    $("next").textContent =
+      "Submit Jawaban";
 
-x =>
-x.classList.remove(
-"sel"
-)
+  }
 
-);
+  else{
 
+    $("next").textContent =
+      "Soal Berikutnya →";
 
-
-b.classList.add(
-"sel"
-);
-
-
-
-$("next").disabled =
-false;
-
-
-};
-
-
-
-$("opts")
-.appendChild(
-b
-);
-
-
-}
-
-);
-
-
-}
-
-
-else{
-
-
-$("mcqArea")
-.classList
-.add(
-"hidden"
-);
-
-
-
-$("essayArea")
-.classList
-.remove(
-"hidden"
-);
-
-
-
-$("essayInput").value =
-
-essayAnswer;
-
-
-
-updateWordCount();
-
-
-
-$("next").disabled =
-
-!essayAnswer.trim();
-
-
-
-$("essayInput")
-.focus();
-
+  }
 
 }
 
 
 
-$("next").textContent =
-
-idx ===
-items.length - 1
-
-?
-
-"Submit Jawaban"
-
-:
-
-"Soal Berikutnya →";
-
-
-}
-
-
-
-/* =========================================
+/* ==================================================
    WORD COUNT
-========================================= */
-
+================================================== */
 
 function updateWordCount(){
 
-
-const txt =
-
-$("essayInput")
-.value
-.trim();
+  const text =
+    $("essayInput")
+      .value
+      .trim();
 
 
+  const words =
+    text
+    ?
+    text
+      .split(/\s+/)
+      .length
+    :
+    0;
 
-$("wordCount").textContent =
 
-txt
-
-?
-
-txt
-.split(
-/\s+/
-)
-.length
-
-:
-
-0;
-
+  $("wordCount").textContent =
+    words;
 
 }
 
@@ -2268,751 +1475,550 @@ txt
 
 $("essayInput")
 .addEventListener(
-
-"input",
-
-()=>{
+  "input",
+  ()=>{
 
 
-essayAnswer =
-
-$("essayInput").value;
-
+    essayAnswer =
+      $("essayInput").value;
 
 
-updateWordCount();
+    updateWordCount();
 
 
+    $("next").disabled =
+      !essayAnswer.trim();
 
-$("next").disabled =
-
-!essayAnswer.trim();
-
-
-}
-
+  }
 );
 
 
 
-/* =========================================
+/* ==================================================
    NEXT QUESTION
-========================================= */
-
+================================================== */
 
 $("next").onclick =
-
 async ()=>{
 
 
-const item =
-
-items[
-idx
-];
+  const item =
+    items[idx];
 
 
-
-if(
-
-item.type ===
-"mcq"
-
-){
+  if(
+    item.type ===
+    "mcq"
+  ){
 
 
-if(
+    if(
+      pick === null
+    ){
 
-pick === null
+      return;
 
-){
-
-return;
-
-}
+    }
 
 
+    pgAnswers.push(
+      {
 
-pgAnswers.push(
+        question_id:
+          item.id,
 
-{
+        answer:
+          item.options[pick]
 
-question_id:
-item.id,
+      }
+    );
 
-answer:
-item.options[
-pick
-]
+  }
 
-}
-
-);
-
-
-}
+  else{
 
 
-else{
+    essayAnswer =
+      $("essayInput")
+        .value
+        .trim();
 
 
-essayAnswer =
+    if(!essayAnswer){
 
-$("essayInput")
-.value
-.trim();
+      return;
 
+    }
 
-
-if(
-
-!essayAnswer
-
-){
-
-return;
-
-}
+  }
 
 
-}
+  if(
+    idx <
+    items.length - 1
+  ){
 
+    idx++;
 
+    render();
 
-if(
+  }
 
-idx <
-items.length - 1
+  else{
 
-){
+    await finish(
+      "Disubmit oleh mahasiswa"
+    );
 
-
-idx++;
-
-
-render();
-
-
-}
-
-
-else{
-
-
-await finish(
-
-"Disubmit oleh mahasiswa"
-
-);
-
-
-}
-
+  }
 
 };
 
 
 
-/* =========================================
+/* ==================================================
    SUBMIT
-========================================= */
+================================================== */
+
+async function finish(reason){
+
+  if(done){
+
+    return;
+
+  }
 
 
-async function finish(
+  done = true;
 
-reason
-
-){
+  started = false;
 
 
-if(
+  clearInterval(
+    tick
+  );
 
-done
 
-){
+  const item =
+    items[idx];
 
-return;
+
+  /*
+  Simpan jawaban soal aktif
+  jika auto-submit terjadi.
+  */
+
+  if(
+    item?.type ===
+    "mcq"
+    &&
+    pick !== null
+  ){
+
+
+    const alreadySaved =
+      pgAnswers.some(
+        answer =>
+          answer.question_id ===
+          item.id
+      );
+
+
+    if(!alreadySaved){
+
+      pgAnswers.push(
+        {
+
+          question_id:
+            item.id,
+
+          answer:
+            item.options[pick]
+
+        }
+      );
+
+    }
+
+  }
+
+
+  if(
+    item?.type ===
+    "essay"
+  ){
+
+    essayAnswer =
+      $("essayInput")
+        .value
+        .trim();
+
+  }
+
+
+  $("next").disabled =
+    true;
+
+
+  $("next").textContent =
+    "Mengirim…";
+
+
+  $("examError").textContent =
+    "";
+
+
+  try{
+
+
+    const data =
+      await rpc(
+        "submit_week6_trial",
+        {
+
+          p_attempt_id:
+            attemptId,
+
+          p_answers:
+            pgAnswers,
+
+          p_essay_answer:
+            essayAnswer,
+
+          p_tab_violations:
+            viol,
+
+          p_submit_reason:
+            reason
+
+        }
+      );
+
+
+    document
+      .body
+      .classList
+      .remove("exam");
+
+
+    $("overlay")
+      .classList
+      .add("hidden");
+
+
+    $("exam")
+      .classList
+      .add("hidden");
+
+
+    $("result")
+      .classList
+      .remove("hidden");
+
+
+    $("score").textContent =
+      `PG: ${data.score_pg} / ${data.total_pg}`;
+
+
+    $("submissionId").textContent =
+      "Submission ID: "
+      +
+      data.attempt_id;
+
+
+    $("resultMsg").textContent =
+      "Jawaban berhasil tersimpan di database.";
+
+
+    try{
+
+      if(
+        document.fullscreenElement
+      ){
+
+        await document
+          .exitFullscreen();
+
+      }
+
+    }
+
+    catch(error){
+
+    }
+
+
+  }
+
+  catch(error){
+
+
+    done = false;
+
+    started = true;
+
+
+    $("examError").textContent =
+      "Submit gagal: "
+      +
+      error.message
+      +
+      ". Jangan tutup halaman; coba Submit lagi.";
+
+
+    $("next").disabled =
+      false;
+
+
+    $("next").textContent =
+      "Coba Submit Lagi";
+
+  }
 
 }
 
 
 
-done =
-true;
-
-
-started =
-false;
-
-
-
-clearInterval(
-tick
-);
-
-
-
-const item =
-
-items[
-idx
-];
-
-
-
-/* simpan jawaban aktif jika auto-submit */
-
-
-if(
-
-item?.type ===
-"mcq"
-
-&&
-
-pick !== null
-
-){
-
-
-const exists =
-
-pgAnswers.some(
-
-a =>
-a.question_id ===
-item.id
-
-);
-
-
-
-if(
-
-!exists
-
-){
-
-
-pgAnswers.push(
-
-{
-
-question_id:
-item.id,
-
-answer:
-item.options[
-pick
-]
-
-}
-
-);
-
-
-}
-
-
-}
-
-
-
-if(
-
-item?.type ===
-"essay"
-
-){
-
-
-essayAnswer =
-
-$("essayInput")
-.value
-.trim();
-
-
-}
-
-
-
-$("next").disabled =
-true;
-
-
-$("next").textContent =
-
-"Mengirim…";
-
-
-$("examError").textContent =
-"";
-
-
-
-try{
-
-
-const data =
-
-await rpc(
-
-"submit_week6_trial",
-
-{
-
-p_attempt_id:
-attemptId,
-
-p_answers:
-pgAnswers,
-
-p_essay_answer:
-essayAnswer,
-
-p_tab_violations:
-viol,
-
-p_submit_reason:
-reason
-
-}
-
-);
-
-
-
-document
-.body
-.classList
-.remove(
-"exam"
-);
-
-
-
-$("overlay")
-.classList
-.add(
-"hidden"
-);
-
-
-
-$("exam")
-.classList
-.add(
-"hidden"
-);
-
-
-
-$("result")
-.classList
-.remove(
-"hidden"
-);
-
-
-
-$("score").textContent =
-
-`PG: ${data.score_pg} / ${data.total_pg}`;
-
-
-
-$("submissionId").textContent =
-
-"Submission ID: "
-
-+
-
-data.attempt_id;
-
-
-
-$("resultMsg").textContent =
-
-"Jawaban berhasil tersimpan di Supabase.";
-
-
-
-try{
-
-
-if(
-
-document.fullscreenElement
-
-){
-
-
-document
-.exitFullscreen();
-
-
-}
-
-
-}
-
-catch(e){
-
-}
-
-
-}
-
-
-catch(err){
-
-
-done =
-false;
-
-
-started =
-true;
-
-
-
-$("examError").textContent =
-
-"Submit gagal: "
-
-+
-
-err.message
-
-+
-
-". Jangan tutup halaman; coba Submit lagi.";
-
-
-
-$("next").disabled =
-false;
-
-
-$("next").textContent =
-
-"Coba Submit Lagi";
-
-
-}
-
-
-}
-
-
-
-/* =========================================
+/* ==================================================
    TAB SWITCH DETECTION
-========================================= */
-
+================================================== */
 
 document
 .addEventListener(
-
-"visibilitychange",
-
-()=>{
+  "visibilitychange",
+  ()=>{
 
 
-if(
+    if(
+      !started
+      ||
+      done
+    ){
 
-!started ||
-done
+      return;
 
-){
-
-return;
-
-}
-
+    }
 
 
-if(
-
-document.hidden
-
-){
+    if(
+      document.hidden
+    ){
 
 
-viol++;
+      viol++;
 
 
-$("viol").textContent =
-viol;
+      $("viol").textContent =
+        viol;
 
 
-
-if(
-
-viol >=
-CFG.maxViol
-
-){
+      if(
+        viol >=
+        CFG.maxViol
+      ){
 
 
-finish(
-
-"Batas perpindahan tab tercapai — submit otomatis"
-
-);
+        finish(
+          "Batas perpindahan tab tercapai — submit otomatis"
+        );
 
 
-}
+      }
+
+      else{
 
 
-else{
+        pendingWarn =
+          true;
+
+      }
 
 
-pendingWarn =
-true;
+    }
+
+    else if(
+      pendingWarn
+      &&
+      !done
+    ){
 
 
-}
+      pendingWarn =
+        false;
 
 
-}
+      $("warnText").textContent =
+        `Perpindahan tab ke-${viol} tercatat. Pada perpindahan ke-${CFG.maxViol}, kuis akan disubmit otomatis.`;
 
 
-else if(
+      $("overlay")
+        .classList
+        .remove("hidden");
 
-pendingWarn &&
-!done
+    }
 
-){
-
-
-pendingWarn =
-false;
-
-
-
-$("warnText").textContent =
-
-`Perpindahan tab ke-${viol} tercatat. Pada perpindahan ke-${CFG.maxViol}, kuis akan disubmit otomatis.`;
-
-
-
-$("overlay")
-.classList
-.remove(
-"hidden"
-);
-
-
-}
-
-
-}
-
+  }
 );
 
 
 
 $("backBtn").onclick =
-
 ()=>{
 
 
-$("overlay")
-.classList
-.add(
-"hidden"
-);
+  $("overlay")
+    .classList
+    .add("hidden");
 
 
+  try{
 
-try{
+    document
+      .documentElement
+      .requestFullscreen?.();
 
+  }
 
-document
-.documentElement
-.requestFullscreen?.();
+  catch(error){
 
-
-}
-
-catch(e){
-
-}
-
+  }
 
 };
 
 
 
-/* =========================================
+/* ==================================================
    BASIC ANTI-COPY
-========================================= */
-
+================================================== */
 
 [
-"contextmenu",
-"copy",
-"cut",
-"paste"
-
-].forEach(
-
-ev =>{
-
-
-document
-.addEventListener(
-
-ev,
-
-e =>{
+  "contextmenu",
+  "copy",
+  "cut",
+  "paste"
+]
+.forEach(
+  eventName =>{
 
 
-if(
-
-started &&
-!done
-
-){
+    document
+    .addEventListener(
+      eventName,
+      event =>{
 
 
-e.preventDefault();
+        if(
+          started
+          &&
+          !done
+        ){
 
+          event.preventDefault();
 
-}
+        }
 
+      }
+    );
 
-}
-
-);
-
-
-}
-
+  }
 );
 
 
 
 document
 .addEventListener(
-
-"keydown",
-
-e =>{
+  "keydown",
+  event =>{
 
 
-if(
+    if(
+      !started
+      ||
+      done
+    ){
 
-!started ||
-done
+      return;
 
-){
-
-return;
-
-}
-
+    }
 
 
-const k =
-
-e.key
-.toLowerCase();
-
+    const key =
+      event.key
+        .toLowerCase();
 
 
-if(
+    if(
 
-e.key ===
-"F12"
+      event.key ===
+      "F12"
 
-||
+      ||
 
-(
-e.ctrlKey &&
-[
-"c",
-"u",
-"s",
-"p"
+      (
+        event.ctrlKey
+        &&
+        [
+          "c",
+          "u",
+          "s",
+          "p"
+        ]
+        .includes(key)
+      )
 
-].includes(
-k
-)
+      ||
 
-)
+      (
+        event.ctrlKey
+        &&
+        event.shiftKey
+        &&
+        [
+          "i",
+          "j",
+          "c"
+        ]
+        .includes(key)
+      )
 
-||
+    ){
 
-(
-e.ctrlKey &&
-e.shiftKey &&
-[
-"i",
-"j",
-"c"
+      event.preventDefault();
 
-].includes(
-k
-)
+    }
 
-)
-
-){
-
-
-e.preventDefault();
-
-
-}
-
-
-}
-
+  }
 );
 
 
 
-/* =========================================
-   CLOSE PAGE WARNING
-========================================= */
-
+/* ==================================================
+   CLOSE / RELOAD WARNING
+================================================== */
 
 window
 .addEventListener(
-
-"beforeunload",
-
-e =>{
+  "beforeunload",
+  event =>{
 
 
-if(
+    if(
+      started
+      &&
+      !done
+    ){
 
-started &&
-!done
+      event.preventDefault();
 
-){
+      event.returnValue =
+        "";
 
+    }
 
-e.preventDefault();
-
-
-e.returnValue =
-"";
-
-
-}
-
-
-}
-
+  }
 );
 
-
 </script>
-
 
 </body>
 
