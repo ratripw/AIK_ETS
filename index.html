@@ -1,383 +1,3019 @@
 <!doctype html>
 <html lang="id">
+
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AIK Week 6 — Supabase Trial</title>
+
+<title>
+AIK Week 6 — Supabase Trial
+</title>
+
+
 <style>
-:root{--navy:#153452;--blue:#2f6fa5;--gold:#b28734;--ink:#23364b;--muted:#69798b;--line:#d8e0e7;--paper:#fbfaf7;--bad:#a2443f;--ok:#24734f}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(180deg,#f5f1e8,#fafafa 220px,#f6f7f8)}
-body.exam{user-select:none}.wrap{max-width:900px;margin:auto;padding:28px 18px 48px}.card{background:var(--paper);border:1px solid #ded8cb;border-radius:22px;padding:30px;box-shadow:0 10px 30px rgba(30,48,66,.07)}
-.eyebrow{font:700 13px Georgia,serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}h1,h2{font-family:Georgia,serif;color:var(--navy)}h1{font-size:clamp(34px,5vw,52px);line-height:1.08;margin:8px 0 14px}.sub{font-size:18px;color:var(--muted);line-height:1.55}.rule{height:2px;background:var(--gold);margin:22px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px}.box b{display:block;color:var(--navy);margin-bottom:5px}.box span,.small{font-size:14px;color:var(--muted);line-height:1.45}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}label{font-size:13px;font-weight:700;color:var(--navy)}input[type=text]{width:100%;margin-top:7px;padding:12px;border:1px solid var(--line);border-radius:9px;font-size:16px;background:#fff}.notice{margin:16px 0;padding:14px 15px;background:#fff;border-left:4px solid var(--gold);color:var(--muted);line-height:1.55}.check{display:flex;gap:10px;align-items:flex-start;margin:16px 0;color:var(--muted);line-height:1.45}
-.btn{border:1px solid var(--line);background:#fff;color:var(--navy);padding:11px 17px;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px;min-height:44px}.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}.btn:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.timer{font:700 28px Georgia,serif;color:var(--navy)}.status{font-size:14px;color:var(--muted)}.progress{height:8px;background:#edf1f4;border-radius:999px;overflow:hidden;margin:14px 0 22px}.progress div{height:100%;background:var(--blue);width:0;transition:.2s}.qmeta{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.q{font:24px/1.45 Georgia,serif;color:var(--navy);margin:8px 0 18px}.opts{display:grid;gap:10px}.opt{display:flex;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);padding:14px 15px;border-radius:11px;cursor:pointer;font-size:16px;color:var(--ink)}.opt:hover{border-color:#9fb4c6;background:#fafcfd}.opt.sel{border-color:var(--navy);background:#edf3f8}.letter{font-weight:700;color:var(--navy);min-width:20px}.actions{display:flex;justify-content:flex-end;margin-top:20px}textarea{width:100%;min-height:230px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:14px;outline:none;font:16px/1.55 Arial,Helvetica,sans-serif;color:var(--ink)}.wordcount{text-align:right;font-size:13px;color:var(--muted);margin-top:7px}.overlay{position:fixed;inset:0;background:rgba(10,24,38,.72);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}.warn{max-width:520px;background:#fff;border-radius:18px;padding:28px;text-align:center}.result{text-align:center}.score{font:700 52px Georgia,serif;color:var(--navy);margin:12px 0}.badge{display:inline-block;background:#eef3f8;color:var(--navy);border-radius:999px;padding:7px 10px;font-size:13px;font-weight:700}.error{color:var(--bad);font-weight:700}.success{color:var(--ok);font-weight:700}
-@media(max-width:700px){.grid,.form{grid-template-columns:1fr}.card{padding:22px}.q{font-size:21px}}
+
+:root{
+
+--navy:#153452;
+--blue:#2f6fa5;
+--gold:#b28734;
+
+--ink:#23364b;
+--muted:#69798b;
+--line:#d8e0e7;
+--paper:#fbfaf7;
+
+--bad:#a2443f;
+--ok:#24734f;
+
+}
+
+
+*{
+box-sizing:border-box;
+}
+
+
+html,
+body{
+
+margin:0;
+
+min-height:100%;
+
+font-family:
+Arial,
+Helvetica,
+sans-serif;
+
+color:
+var(--ink);
+
+background:
+linear-gradient(
+180deg,
+#f5f1e8,
+#fafafa 220px,
+#f6f7f8
+);
+
+}
+
+
+body.exam{
+
+user-select:none;
+
+}
+
+
+.wrap{
+
+max-width:
+900px;
+
+margin:
+auto;
+
+padding:
+28px 18px 48px;
+
+}
+
+
+.card{
+
+background:
+var(--paper);
+
+border:
+1px solid #ded8cb;
+
+border-radius:
+22px;
+
+padding:
+30px;
+
+box-shadow:
+0 10px 30px
+rgba(30,48,66,.07);
+
+}
+
+
+.eyebrow{
+
+font:
+700 13px Georgia,
+serif;
+
+letter-spacing:
+.16em;
+
+text-transform:
+uppercase;
+
+color:
+var(--gold);
+
+}
+
+
+h1,
+h2{
+
+font-family:
+Georgia,
+serif;
+
+color:
+var(--navy);
+
+}
+
+
+h1{
+
+font-size:
+clamp(
+34px,
+5vw,
+52px
+);
+
+line-height:
+1.08;
+
+margin:
+8px 0 14px;
+
+}
+
+
+.sub{
+
+font-size:
+18px;
+
+color:
+var(--muted);
+
+line-height:
+1.55;
+
+}
+
+
+.rule{
+
+height:
+2px;
+
+background:
+var(--gold);
+
+margin:
+22px 0;
+
+}
+
+
+.grid{
+
+display:
+grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:
+12px;
+
+}
+
+
+.box{
+
+background:
+#fff;
+
+border:
+1px solid var(--line);
+
+border-radius:
+12px;
+
+padding:
+15px;
+
+}
+
+
+.box b{
+
+display:
+block;
+
+color:
+var(--navy);
+
+margin-bottom:
+5px;
+
+}
+
+
+.box span,
+.small{
+
+font-size:
+14px;
+
+color:
+var(--muted);
+
+line-height:
+1.45;
+
+}
+
+
+.form{
+
+display:
+grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:
+12px;
+
+margin:
+18px 0;
+
+}
+
+
+label{
+
+font-size:
+13px;
+
+font-weight:
+700;
+
+color:
+var(--navy);
+
+}
+
+
+input[type=text]{
+
+width:
+100%;
+
+margin-top:
+7px;
+
+padding:
+12px;
+
+border:
+1px solid var(--line);
+
+border-radius:
+9px;
+
+font-size:
+16px;
+
+background:
+#fff;
+
+}
+
+
+.check{
+
+display:
+flex;
+
+gap:
+10px;
+
+align-items:
+flex-start;
+
+margin:
+16px 0;
+
+color:
+var(--muted);
+
+line-height:
+1.45;
+
+}
+
+
+.btn{
+
+border:
+1px solid var(--line);
+
+background:
+#fff;
+
+color:
+var(--navy);
+
+padding:
+11px 17px;
+
+border-radius:
+10px;
+
+font-weight:
+700;
+
+cursor:
+pointer;
+
+font-size:
+15px;
+
+min-height:
+44px;
+
+}
+
+
+.btn.primary{
+
+background:
+var(--navy);
+
+color:
+#fff;
+
+border-color:
+var(--navy);
+
+}
+
+
+.btn:disabled{
+
+opacity:
+.45;
+
+cursor:
+not-allowed;
+
+}
+
+
+.hidden{
+
+display:
+none !important;
+
+}
+
+
+.top{
+
+display:
+flex;
+
+justify-content:
+space-between;
+
+gap:
+12px;
+
+flex-wrap:
+wrap;
+
+align-items:
+center;
+
+}
+
+
+.timer{
+
+font:
+700 28px Georgia,
+serif;
+
+color:
+var(--navy);
+
+}
+
+
+.status{
+
+font-size:
+14px;
+
+color:
+var(--muted);
+
+}
+
+
+.progress{
+
+height:
+8px;
+
+background:
+#edf1f4;
+
+border-radius:
+999px;
+
+overflow:
+hidden;
+
+margin:
+14px 0 22px;
+
+}
+
+
+.progress div{
+
+height:
+100%;
+
+background:
+var(--blue);
+
+width:
+0;
+
+transition:
+.2s;
+
+}
+
+
+.qmeta{
+
+font-size:
+13px;
+
+font-weight:
+700;
+
+letter-spacing:
+.08em;
+
+text-transform:
+uppercase;
+
+color:
+var(--muted);
+
+}
+
+
+.q{
+
+font:
+24px/1.45 Georgia,
+serif;
+
+color:
+var(--navy);
+
+margin:
+8px 0 18px;
+
+}
+
+
+.opts{
+
+display:
+grid;
+
+gap:
+10px;
+
+}
+
+
+.opt{
+
+display:
+flex;
+
+gap:
+12px;
+
+width:
+100%;
+
+text-align:
+left;
+
+background:
+#fff;
+
+border:
+1px solid var(--line);
+
+padding:
+14px 15px;
+
+border-radius:
+11px;
+
+cursor:
+pointer;
+
+font-size:
+16px;
+
+color:
+var(--ink);
+
+}
+
+
+.opt:hover{
+
+border-color:
+#9fb4c6;
+
+background:
+#fafcfd;
+
+}
+
+
+.opt.sel{
+
+border-color:
+var(--navy);
+
+background:
+#edf3f8;
+
+}
+
+
+.letter{
+
+font-weight:
+700;
+
+color:
+var(--navy);
+
+min-width:
+20px;
+
+}
+
+
+.actions{
+
+display:
+flex;
+
+justify-content:
+flex-end;
+
+margin-top:
+20px;
+
+}
+
+
+textarea{
+
+width:
+100%;
+
+min-height:
+230px;
+
+resize:
+vertical;
+
+border:
+1px solid var(--line);
+
+border-radius:
+12px;
+
+padding:
+14px;
+
+outline:
+none;
+
+font:
+16px/1.55 Arial,
+Helvetica,
+sans-serif;
+
+color:
+var(--ink);
+
+}
+
+
+.wordcount{
+
+text-align:
+right;
+
+font-size:
+13px;
+
+color:
+var(--muted);
+
+margin-top:
+7px;
+
+}
+
+
+.overlay{
+
+position:
+fixed;
+
+inset:
+0;
+
+background:
+rgba(10,24,38,.72);
+
+display:
+flex;
+
+align-items:
+center;
+
+justify-content:
+center;
+
+padding:
+20px;
+
+z-index:
+10;
+
+}
+
+
+.warn{
+
+max-width:
+520px;
+
+background:
+#fff;
+
+border-radius:
+18px;
+
+padding:
+28px;
+
+text-align:
+center;
+
+}
+
+
+.result{
+
+text-align:
+center;
+
+}
+
+
+.score{
+
+font:
+700 52px Georgia,
+serif;
+
+color:
+var(--navy);
+
+margin:
+12px 0;
+
+}
+
+
+.badge{
+
+display:
+inline-block;
+
+background:
+#eef3f8;
+
+color:
+var(--navy);
+
+border-radius:
+999px;
+
+padding:
+7px 10px;
+
+font-size:
+13px;
+
+font-weight:
+700;
+
+}
+
+
+.error{
+
+color:
+var(--bad);
+
+font-weight:
+700;
+
+}
+
+
+.success{
+
+color:
+var(--ok);
+
+font-weight:
+700;
+
+}
+
+
+@media(
+max-width:700px
+){
+
+.grid,
+.form{
+
+grid-template-columns:
+1fr;
+
+}
+
+
+.card{
+
+padding:
+22px;
+
+}
+
+
+.q{
+
+font-size:
+21px;
+
+}
+
+}
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <div class="wrap">
 
-<section class="card" id="start">
-  <div class="eyebrow">ALAT INDUSTRI KIMIA • SUPABASE TRIAL</div>
-  <h1>Evaporation &amp; Evaporator Equipment</h1>
-  <p class="sub">Prototype backend-secured: 2 PG acak + 1 uraian. Kunci jawaban tidak berada di file HTML.</p>
-  <div class="rule"></div>
 
-  <div class="grid">
-    <div class="box"><b>2 PG Acak</b><span>Soal diminta dari database saat trial dimulai.</span></div>
-    <div class="box"><b>1 Uraian Acak</b><span>Jawaban tersimpan di Supabase.</span></div>
-    <div class="box"><b>10 Menit</b><span>Pindah tab ke-3 memicu submit.</span></div>
-  </div>
+<!-- ==============================
+     START SCREEN
+============================== -->
 
-  <div class="form">
-    <label>Nama Mahasiswa<input id="name" type="text" autocomplete="off" placeholder="Nama lengkap"></label>
-    <label>NPM<input id="npm" type="text" autocomplete="off" placeholder="NPM"></label>
-  </div>
 
-  <div class="notice">
-    Isi <b>https://ofnfcojkwlojvjiuaivh.supabase.co</b> dan <b>sb_publishable_176X2v4_F8xN1bL-ATPjdg_joLsgsRi</b> pada bagian CONFIG file ini sebelum digunakan.
-    Jangan memasukkan secret/service-role key ke HTML.
-  </div>
+<section
+class="card"
+id="start">
 
-  <label class="check"><input id="agree" type="checkbox"><span>Saya memahami bahwa setelah menekan Next saya tidak dapat kembali ke soal sebelumnya dan perpindahan tab akan tercatat.</span></label>
-  <button id="startBtn" class="btn primary" disabled>Mulai Trial</button>
-  <p id="startError" class="error"></p>
-</section>
 
-<section class="card hidden" id="exam">
-  <div class="top">
-    <div><div class="eyebrow">WEEK 6 • EXAM MODE</div><div id="student" class="status"></div></div>
-    <div style="text-align:right"><div id="timer" class="timer">10:00</div><div class="status">Pindah tab: <b id="viol">0</b>/3</div></div>
-  </div>
-  <div class="progress"><div id="bar"></div></div>
-  <div id="qmeta" class="qmeta"></div>
-  <div id="qtext" class="q"></div>
+<div class="eyebrow">
 
-  <div id="mcqArea"><div id="opts" class="opts"></div></div>
-  <div id="essayArea" class="hidden">
-    <textarea id="essayInput" placeholder="Tuliskan jawaban Anda di sini..."></textarea>
-    <div class="wordcount"><span id="wordCount">0</span> kata</div>
-  </div>
-
-  <p id="examError" class="error"></p>
-  <div class="actions"><button id="next" class="btn primary" disabled>Soal Berikutnya →</button></div>
-</section>
-
-<section class="card hidden result" id="result">
-  <div class="eyebrow">SUBMISSION RECEIVED</div>
-  <h2>Trial Selesai</h2>
-  <div id="score" class="score"></div>
-  <div id="submissionId" class="badge"></div>
-  <p id="resultMsg" class="success"></p>
-  <p class="small">Skor PG ditampilkan pada trial untuk membuktikan grading terjadi di database. Pada versi final, skor ini bisa disembunyikan dari mahasiswa.</p>
-</section>
+ALAT INDUSTRI KIMIA • SUPABASE TRIAL
 
 </div>
 
-<div id="overlay" class="overlay hidden">
-  <div class="warn">
-    <h2>Perpindahan Tab Terdeteksi</h2>
-    <p id="warnText"></p>
-    <button id="backBtn" class="btn primary">Kembali ke Kuis</button>
-  </div>
+
+<h1>
+
+Evaporation &amp; Evaporator Equipment
+
+</h1>
+
+
+<p class="sub">
+
+Prototype backend-secured:
+2 PG acak + 1 uraian.
+Kunci jawaban tidak berada di file HTML.
+
+</p>
+
+
+<div class="rule"></div>
+
+
+<div class="grid">
+
+
+<div class="box">
+
+<b>
+
+2 PG Acak
+
+</b>
+
+<span>
+
+Soal diminta dari database
+saat trial dimulai.
+
+</span>
+
 </div>
+
+
+
+<div class="box">
+
+<b>
+
+1 Uraian Acak
+
+</b>
+
+<span>
+
+Jawaban tersimpan di Supabase.
+
+</span>
+
+</div>
+
+
+
+<div class="box">
+
+<b>
+
+10 Menit
+
+</b>
+
+<span>
+
+Pindah tab ke-3
+memicu submit.
+
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form">
+
+
+<label>
+
+Nama Mahasiswa
+
+<input
+id="name"
+type="text"
+autocomplete="off"
+placeholder="Nama lengkap">
+
+</label>
+
+
+
+<label>
+
+NPM
+
+<input
+id="npm"
+type="text"
+autocomplete="off"
+placeholder="NPM">
+
+</label>
+
+
+</div>
+
+
+
+<label class="check">
+
+
+<input
+id="agree"
+type="checkbox">
+
+
+<span>
+
+Saya memahami bahwa setelah menekan Next
+saya tidak dapat kembali ke soal sebelumnya
+dan perpindahan tab akan tercatat.
+
+</span>
+
+
+</label>
+
+
+
+<button
+id="startBtn"
+class="btn primary"
+disabled>
+
+Mulai Trial
+
+</button>
+
+
+<p
+id="startError"
+class="error">
+
+</p>
+
+
+</section>
+
+
+
+<!-- ==============================
+     EXAM
+============================== -->
+
+
+<section
+class="card hidden"
+id="exam">
+
+
+<div class="top">
+
+
+<div>
+
+
+<div class="eyebrow">
+
+WEEK 6 • EXAM MODE
+
+</div>
+
+
+<div
+id="student"
+class="status">
+
+</div>
+
+
+</div>
+
+
+
+<div
+style="text-align:right">
+
+
+<div
+id="timer"
+class="timer">
+
+10:00
+
+</div>
+
+
+<div class="status">
+
+Pindah tab:
+
+<b id="viol">
+
+0
+
+</b>
+
+/3
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="progress">
+
+<div id="bar"></div>
+
+</div>
+
+
+
+<div
+id="qmeta"
+class="qmeta">
+
+</div>
+
+
+
+<div
+id="qtext"
+class="q">
+
+</div>
+
+
+
+<div id="mcqArea">
+
+
+<div
+id="opts"
+class="opts">
+
+</div>
+
+
+</div>
+
+
+
+<div
+id="essayArea"
+class="hidden">
+
+
+<textarea
+id="essayInput"
+placeholder="Tuliskan jawaban Anda di sini...">
+
+</textarea>
+
+
+<div class="wordcount">
+
+<span id="wordCount">
+
+0
+
+</span>
+
+kata
+
+</div>
+
+
+</div>
+
+
+
+<p
+id="examError"
+class="error">
+
+</p>
+
+
+
+<div class="actions">
+
+
+<button
+id="next"
+class="btn primary"
+disabled>
+
+Soal Berikutnya →
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ==============================
+     RESULT
+============================== -->
+
+
+<section
+class="card hidden result"
+id="result">
+
+
+<div class="eyebrow">
+
+SUBMISSION RECEIVED
+
+</div>
+
+
+<h2>
+
+Trial Selesai
+
+</h2>
+
+
+<div
+id="score"
+class="score">
+
+</div>
+
+
+<div
+id="submissionId"
+class="badge">
+
+</div>
+
+
+<p
+id="resultMsg"
+class="success">
+
+</p>
+
+
+<p class="small">
+
+Skor PG ditampilkan pada trial
+untuk membuktikan grading terjadi
+di database.
+
+Pada versi final,
+skor ini bisa disembunyikan
+dari mahasiswa.
+
+</p>
+
+
+</section>
+
+
+</div>
+
+
+
+<!-- ==============================
+     TAB WARNING
+============================== -->
+
+
+<div
+id="overlay"
+class="overlay hidden">
+
+
+<div class="warn">
+
+
+<h2>
+
+Perpindahan Tab Terdeteksi
+
+</h2>
+
+
+<p id="warnText">
+
+</p>
+
+
+<button
+id="backBtn"
+class="btn primary">
+
+Kembali ke Kuis
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
 
 <script>
-// ==========================================================
-// CONFIG — isi 2 nilai ini dari dashboard Supabase.
-// Publishable key boleh berada di frontend.
-// JANGAN gunakan secret/service-role key.
-// ==========================================================
-const SUPABASE_URL = https://ofnfcojkwlojvjiuaivh.supabase.co;
-const SUPABASE_PUBLISHABLE_KEY = sb_publishable_176X2v4_F8xN1bL-ATPjdg_joLsgsRi;
 
-const CFG={minutes:10,maxViol:3};
 
-const $=id=>document.getElementById(id);
-let attemptId=null, items=[], idx=0, pick=null, pgAnswers=[], essayAnswer="";
-let viol=0, left=CFG.minutes*60, tick=null, started=false, done=false, pendingWarn=false;
+/* =========================================
+   SUPABASE CONFIG
+
+   Publishable key memang boleh
+   berada di frontend.
+
+   JANGAN gunakan secret/service_role key.
+========================================= */
+
+
+const SUPABASE_URL =
+"https://ofnfcojkwlojvjiuaivh.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_176X2v4_F8xN1bL-ATPjdg_joLsgsRi";
+
+
+
+/* =========================================
+   EXAM CONFIG
+========================================= */
+
+
+const CFG = {
+
+minutes:10,
+
+maxViol:3
+
+};
+
+
+
+const $ =
+
+id =>
+document.getElementById(
+id
+);
+
+
+
+let attemptId =
+null;
+
+
+let items =
+[];
+
+
+let idx =
+0;
+
+
+let pick =
+null;
+
+
+let pgAnswers =
+[];
+
+
+let essayAnswer =
+"";
+
+
+let viol =
+0;
+
+
+let left =
+CFG.minutes * 60;
+
+
+let tick =
+null;
+
+
+let started =
+false;
+
+
+let done =
+false;
+
+
+let pendingWarn =
+false;
+
+
+
+/* =========================================
+   SHUFFLE
+========================================= */
+
 
 function shuffle(a){
-  a=[...a];
-  for(let i=a.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-  return a;
+
+
+a = [
+...a
+];
+
+
+for(
+
+let i =
+a.length - 1;
+
+i > 0;
+
+i--
+
+){
+
+
+const j =
+
+Math.floor(
+
+Math.random() *
+(i + 1)
+
+);
+
+
+[
+a[i],
+a[j]
+
+] = [
+
+a[j],
+a[i]
+
+];
+
+
 }
+
+
+return a;
+
+
+}
+
+
+
+/* =========================================
+   CHECK CONFIG
+========================================= */
+
 
 function readyConfig(){
-  return SUPABASE_URL.startsWith("https://") &&
-         !SUPABASE_URL.includes("PASTE_") &&
-         SUPABASE_PUBLISHABLE_KEY.length>20 &&
-         !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_");
+
+
+return
+
+SUPABASE_URL
+.startsWith(
+"https://"
+)
+
+&&
+
+!SUPABASE_URL
+.includes(
+"PASTE_"
+)
+
+&&
+
+SUPABASE_PUBLISHABLE_KEY
+.length > 20
+
+&&
+
+!SUPABASE_PUBLISHABLE_KEY
+.includes(
+"PASTE_"
+);
+
+
 }
 
-async function rpc(fn, body){
-  const res=await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      "apikey":SUPABASE_PUBLISHABLE_KEY,
-      "Authorization":`Bearer ${SUPABASE_PUBLISHABLE_KEY}`
-    },
-    body:JSON.stringify(body)
-  });
 
-  let data=null;
-  try{data=await res.json()}catch(e){}
 
-  if(!res.ok){
-    throw new Error(data?.message || data?.error || `HTTP ${res.status}`);
-  }
-  return data;
+/* =========================================
+   SUPABASE RPC
+========================================= */
+
+
+async function rpc(
+
+fn,
+body
+
+){
+
+
+const res =
+
+await fetch(
+
+`${SUPABASE_URL}/rest/v1/rpc/${fn}`,
+
+{
+
+
+method:
+"POST",
+
+
+headers:{
+
+"Content-Type":
+"application/json",
+
+"apikey":
+SUPABASE_PUBLISHABLE_KEY,
+
+"Authorization":
+`Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+
+},
+
+
+body:
+JSON.stringify(
+body
+)
+
+
 }
+
+);
+
+
+
+let data =
+null;
+
+
+try{
+
+data =
+await res.json();
+
+}
+
+catch(e){
+
+}
+
+
+
+if(
+
+!res.ok
+
+){
+
+
+throw new Error(
+
+data?.message
+
+||
+
+data?.error
+
+||
+
+`HTTP ${res.status}`
+
+);
+
+
+}
+
+
+return data;
+
+
+}
+
+
+
+/* =========================================
+   START FORM
+========================================= */
+
 
 function canStart(){
-  $("startBtn").disabled=!($("name").value.trim()&&$("npm").value.trim()&&$("agree").checked);
+
+
+$("startBtn").disabled =
+
+!(
+
+$("name").value.trim()
+
+&&
+
+$("npm").value.trim()
+
+&&
+
+$("agree").checked
+
+);
+
+
 }
-["name","npm"].forEach(id=>$(id).addEventListener("input",canStart));
-$("agree").addEventListener("change",canStart);
 
-$("startBtn").onclick=async()=>{
-  $("startError").textContent="";
 
-  if(!readyConfig()){
-    $("startError").textContent="SUPABASE_URL / PUBLISHABLE KEY belum diisi.";
-    return;
-  }
 
-  $("startBtn").disabled=true;
-  $("startBtn").textContent="Mengambil soal…";
+[
+"name",
+"npm"
 
-  try{
-    const data=await rpc("start_week6_trial",{
-      p_name:$("name").value.trim(),
-      p_npm:$("npm").value.trim()
-    });
+].forEach(
 
-    attemptId=data.attempt_id;
+id =>
 
-    const mcqs=(data.questions||[]).map(q=>({
-      type:"mcq",
-      id:q.id,
-      topic:q.topic,
-      question:q.question,
-      options:shuffle(q.options||[])
-    }));
+$(id)
+.addEventListener(
 
-    const essay={
-      type:"essay",
-      id:data.essay.id,
-      topic:data.essay.topic,
-      question:data.essay.question
-    };
+"input",
+canStart
 
-    items=[...mcqs,essay];
-    idx=0;pick=null;pgAnswers=[];essayAnswer="";viol=0;left=CFG.minutes*60;started=true;done=false;
+)
 
-    document.body.classList.add("exam");
-    $("start").classList.add("hidden");
-    $("exam").classList.remove("hidden");
-    $("student").textContent=$("name").value.trim()+" • "+$("npm").value.trim();
-    $("viol").textContent=viol;
+);
 
-    try{await document.documentElement.requestFullscreen?.()}catch(e){}
 
-    render();
-    clock();
-    tick=setInterval(()=>{
-      left--;
-      clock();
-      if(left<=0) finish("Waktu habis — submit otomatis");
-    },1000);
 
-  }catch(err){
-    $("startError").textContent="Gagal memulai trial: "+err.message;
-    $("startBtn").disabled=false;
-    $("startBtn").textContent="Mulai Trial";
-  }
+$("agree")
+.addEventListener(
+
+"change",
+canStart
+
+);
+
+
+
+/* =========================================
+   START QUIZ
+========================================= */
+
+
+$("startBtn").onclick =
+
+async ()=>{
+
+
+$("startError").textContent =
+"";
+
+
+
+if(
+
+!readyConfig()
+
+){
+
+
+$("startError").textContent =
+
+"SUPABASE_URL / PUBLISHABLE KEY belum diisi.";
+
+
+return;
+
+
+}
+
+
+
+$("startBtn").disabled =
+true;
+
+
+$("startBtn").textContent =
+
+"Mengambil soal…";
+
+
+
+try{
+
+
+const data =
+
+await rpc(
+
+"start_week6_trial",
+
+{
+
+p_name:
+$("name").value.trim(),
+
+p_npm:
+$("npm").value.trim()
+
+}
+
+);
+
+
+
+attemptId =
+
+data.attempt_id;
+
+
+
+const mcqs =
+
+(
+data.questions || []
+)
+
+.map(
+
+q => ({
+
+type:
+"mcq",
+
+id:
+q.id,
+
+topic:
+q.topic,
+
+question:
+q.question,
+
+options:
+shuffle(
+q.options || []
+)
+
+})
+
+);
+
+
+
+const essay = {
+
+type:
+"essay",
+
+id:
+data.essay.id,
+
+topic:
+data.essay.topic,
+
+question:
+data.essay.question
+
 };
+
+
+
+items = [
+
+...mcqs,
+
+essay
+
+];
+
+
+
+idx =
+0;
+
+
+pick =
+null;
+
+
+pgAnswers =
+[];
+
+
+essayAnswer =
+"";
+
+
+viol =
+0;
+
+
+left =
+CFG.minutes * 60;
+
+
+started =
+true;
+
+
+done =
+false;
+
+
+
+document
+.body
+.classList
+.add(
+"exam"
+);
+
+
+
+$("start")
+.classList
+.add(
+"hidden"
+);
+
+
+
+$("exam")
+.classList
+.remove(
+"hidden"
+);
+
+
+
+$("student").textContent =
+
+$("name").value.trim()
+
++
+
+" • "
+
++
+
+$("npm").value.trim();
+
+
+
+$("viol").textContent =
+viol;
+
+
+
+try{
+
+
+await document
+.documentElement
+.requestFullscreen?.();
+
+
+}
+
+catch(e){
+
+}
+
+
+
+render();
+
+
+clock();
+
+
+
+tick =
+
+setInterval(
+
+()=>{
+
+
+left--;
+
+
+clock();
+
+
+
+if(
+
+left <= 0
+
+){
+
+
+finish(
+
+"Waktu habis — submit otomatis"
+
+);
+
+
+}
+
+
+},
+
+1000
+
+);
+
+
+
+}
+
+catch(err){
+
+
+$("startError").textContent =
+
+"Gagal memulai trial: "
+
++
+
+err.message;
+
+
+
+$("startBtn").disabled =
+false;
+
+
+$("startBtn").textContent =
+
+"Mulai Trial";
+
+
+}
+
+
+};
+
+
+
+/* =========================================
+   TIMER
+========================================= */
+
 
 function clock(){
-  const m=Math.floor(Math.max(0,left)/60);
-  const s=Math.max(0,left)%60;
-  $("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-  if(left<=60)$("timer").style.color="var(--bad)";
+
+
+const m =
+
+Math.floor(
+
+Math.max(
+0,
+left
+)
+
+/ 60
+
+);
+
+
+
+const s =
+
+Math.max(
+0,
+left
+)
+
+% 60;
+
+
+
+$("timer").textContent =
+
+String(m)
+.padStart(
+2,
+"0"
+)
+
++
+
+":"
+
++
+
+String(s)
+.padStart(
+2,
+"0"
+);
+
+
+
+if(
+
+left <= 60
+
+){
+
+
+$("timer").style.color =
+
+"var(--bad)";
+
+
 }
+
+
+}
+
+
+
+/* =========================================
+   RENDER QUESTION
+========================================= */
+
 
 function render(){
-  pick=null;
-  $("next").disabled=true;
-  $("examError").textContent="";
-  const item=items[idx];
 
-  $("qmeta").textContent=`Soal ${idx+1} dari ${items.length} • ${item.topic}`;
-  $("qtext").textContent=item.question;
-  $("bar").style.width=(idx/items.length*100)+"%";
 
-  if(item.type==="mcq"){
-    $("mcqArea").classList.remove("hidden");
-    $("essayArea").classList.add("hidden");
-    $("opts").innerHTML="";
+pick =
+null;
 
-    item.options.forEach((option,k)=>{
-      const b=document.createElement("button");
-      b.className="opt";
-      b.type="button";
-      b.innerHTML=`<span class="letter">${String.fromCharCode(65+k)}.</span><span>${option}</span>`;
-      b.onclick=()=>{
-        pick=k;
-        [...$("opts").children].forEach(x=>x.classList.remove("sel"));
-        b.classList.add("sel");
-        $("next").disabled=false;
-      };
-      $("opts").appendChild(b);
-    });
 
-  }else{
-    $("mcqArea").classList.add("hidden");
-    $("essayArea").classList.remove("hidden");
-    $("essayInput").value=essayAnswer;
-    updateWordCount();
-    $("next").disabled=!essayAnswer.trim();
-    $("essayInput").focus();
-  }
+$("next").disabled =
+true;
 
-  $("next").textContent=idx===items.length-1?"Submit Jawaban":"Soal Berikutnya →";
+
+$("examError").textContent =
+"";
+
+
+
+const item =
+
+items[
+idx
+];
+
+
+
+$("qmeta").textContent =
+
+`Soal ${idx + 1} dari ${items.length} • ${item.topic}`;
+
+
+
+$("qtext").textContent =
+
+item.question;
+
+
+
+$("bar").style.width =
+
+(
+idx /
+items.length *
+100
+
+)
+
++
+
+"%";
+
+
+
+if(
+
+item.type ===
+"mcq"
+
+){
+
+
+$("mcqArea")
+.classList
+.remove(
+"hidden"
+);
+
+
+
+$("essayArea")
+.classList
+.add(
+"hidden"
+);
+
+
+
+$("opts").innerHTML =
+"";
+
+
+
+item.options
+.forEach(
+
+(
+option,
+k
+)=>{
+
+
+const b =
+
+document.createElement(
+"button"
+);
+
+
+
+b.className =
+"opt";
+
+
+b.type =
+"button";
+
+
+
+b.innerHTML = `
+
+<span class="letter">
+
+${String.fromCharCode(
+65 + k
+)}.
+
+</span>
+
+<span>
+
+${option}
+
+</span>
+
+`;
+
+
+
+b.onclick =
+
+()=>{
+
+
+pick =
+k;
+
+
+
+[
+...$("opts").children
+
+].forEach(
+
+x =>
+x.classList.remove(
+"sel"
+)
+
+);
+
+
+
+b.classList.add(
+"sel"
+);
+
+
+
+$("next").disabled =
+false;
+
+
+};
+
+
+
+$("opts")
+.appendChild(
+b
+);
+
+
 }
+
+);
+
+
+}
+
+
+else{
+
+
+$("mcqArea")
+.classList
+.add(
+"hidden"
+);
+
+
+
+$("essayArea")
+.classList
+.remove(
+"hidden"
+);
+
+
+
+$("essayInput").value =
+
+essayAnswer;
+
+
+
+updateWordCount();
+
+
+
+$("next").disabled =
+
+!essayAnswer.trim();
+
+
+
+$("essayInput")
+.focus();
+
+
+}
+
+
+
+$("next").textContent =
+
+idx ===
+items.length - 1
+
+?
+
+"Submit Jawaban"
+
+:
+
+"Soal Berikutnya →";
+
+
+}
+
+
+
+/* =========================================
+   WORD COUNT
+========================================= */
+
 
 function updateWordCount(){
-  const txt=$("essayInput").value.trim();
-  $("wordCount").textContent=txt?txt.split(/\s+/).length:0;
+
+
+const txt =
+
+$("essayInput")
+.value
+.trim();
+
+
+
+$("wordCount").textContent =
+
+txt
+
+?
+
+txt
+.split(
+/\s+/
+)
+.length
+
+:
+
+0;
+
+
 }
 
-$("essayInput").addEventListener("input",()=>{
-  essayAnswer=$("essayInput").value;
-  updateWordCount();
-  $("next").disabled=!essayAnswer.trim();
-});
 
-$("next").onclick=async()=>{
-  const item=items[idx];
 
-  if(item.type==="mcq"){
-    if(pick===null)return;
-    pgAnswers.push({
-      question_id:item.id,
-      answer:item.options[pick]
-    });
-  }else{
-    essayAnswer=$("essayInput").value.trim();
-    if(!essayAnswer)return;
-  }
+$("essayInput")
+.addEventListener(
 
-  if(idx<items.length-1){
-    idx++;
-    render();
-  }else{
-    await finish("Disubmit oleh mahasiswa");
-  }
-};
+"input",
 
-async function finish(reason){
-  if(done)return;
-  done=true;
-  started=false;
-  clearInterval(tick);
+()=>{
 
-  // simpan jawaban yang sedang aktif ketika auto-submit
-  const item=items[idx];
-  if(item?.type==="mcq" && pick!==null){
-    const exists=pgAnswers.some(a=>a.question_id===item.id);
-    if(!exists){
-      pgAnswers.push({question_id:item.id,answer:item.options[pick]});
-    }
-  }
-  if(item?.type==="essay"){
-    essayAnswer=$("essayInput").value.trim();
-  }
 
-  $("next").disabled=true;
-  $("next").textContent="Mengirim…";
-  $("examError").textContent="";
+essayAnswer =
 
-  try{
-    const data=await rpc("submit_week6_trial",{
-      p_attempt_id:attemptId,
-      p_answers:pgAnswers,
-      p_essay_answer:essayAnswer,
-      p_tab_violations:viol,
-      p_submit_reason:reason
-    });
+$("essayInput").value;
 
-    document.body.classList.remove("exam");
-    $("overlay").classList.add("hidden");
-    $("exam").classList.add("hidden");
-    $("result").classList.remove("hidden");
 
-    $("score").textContent=`PG: ${data.score_pg} / ${data.total_pg}`;
-    $("submissionId").textContent="Submission ID: "+data.attempt_id;
-    $("resultMsg").textContent="Jawaban berhasil tersimpan di Supabase.";
 
-    try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}
+updateWordCount();
 
-  }catch(err){
-    done=false;
-    started=true;
-    $("examError").textContent="Submit gagal: "+err.message+". Jangan tutup halaman; coba Submit lagi.";
-    $("next").disabled=false;
-    $("next").textContent="Coba Submit Lagi";
-  }
+
+
+$("next").disabled =
+
+!essayAnswer.trim();
+
+
 }
 
-document.addEventListener("visibilitychange",()=>{
-  if(!started||done)return;
+);
 
-  if(document.hidden){
-    viol++;
-    $("viol").textContent=viol;
-    if(viol>=CFG.maxViol){
-      finish("Batas perpindahan tab tercapai — submit otomatis");
-    }else{
-      pendingWarn=true;
-    }
-  }else if(pendingWarn&&!done){
-    pendingWarn=false;
-    $("warnText").textContent=`Perpindahan tab ke-${viol} tercatat. Pada perpindahan ke-${CFG.maxViol}, kuis akan disubmit otomatis.`;
-    $("overlay").classList.remove("hidden");
-  }
-});
 
-$("backBtn").onclick=()=>{
-  $("overlay").classList.add("hidden");
-  try{document.documentElement.requestFullscreen?.()}catch(e){}
+
+/* =========================================
+   NEXT QUESTION
+========================================= */
+
+
+$("next").onclick =
+
+async ()=>{
+
+
+const item =
+
+items[
+idx
+];
+
+
+
+if(
+
+item.type ===
+"mcq"
+
+){
+
+
+if(
+
+pick === null
+
+){
+
+return;
+
+}
+
+
+
+pgAnswers.push(
+
+{
+
+question_id:
+item.id,
+
+answer:
+item.options[
+pick
+]
+
+}
+
+);
+
+
+}
+
+
+else{
+
+
+essayAnswer =
+
+$("essayInput")
+.value
+.trim();
+
+
+
+if(
+
+!essayAnswer
+
+){
+
+return;
+
+}
+
+
+}
+
+
+
+if(
+
+idx <
+items.length - 1
+
+){
+
+
+idx++;
+
+
+render();
+
+
+}
+
+
+else{
+
+
+await finish(
+
+"Disubmit oleh mahasiswa"
+
+);
+
+
+}
+
+
 };
 
-["contextmenu","copy","cut","paste"].forEach(ev=>{
-  document.addEventListener(ev,e=>{
-    if(started&&!done)e.preventDefault();
-  });
-});
 
-document.addEventListener("keydown",e=>{
-  if(!started||done)return;
-  const k=e.key.toLowerCase();
-  if(
-    e.key==="F12" ||
-    (e.ctrlKey&&["c","u","s","p"].includes(k)) ||
-    (e.ctrlKey&&e.shiftKey&&["i","j","c"].includes(k))
-  ){
-    e.preventDefault();
-  }
-});
 
-window.addEventListener("beforeunload",e=>{
-  if(started&&!done){
-    e.preventDefault();
-    e.returnValue="";
-  }
-});
+/* =========================================
+   SUBMIT
+========================================= */
+
+
+async function finish(
+
+reason
+
+){
+
+
+if(
+
+done
+
+){
+
+return;
+
+}
+
+
+
+done =
+true;
+
+
+started =
+false;
+
+
+
+clearInterval(
+tick
+);
+
+
+
+const item =
+
+items[
+idx
+];
+
+
+
+/* simpan jawaban aktif jika auto-submit */
+
+
+if(
+
+item?.type ===
+"mcq"
+
+&&
+
+pick !== null
+
+){
+
+
+const exists =
+
+pgAnswers.some(
+
+a =>
+a.question_id ===
+item.id
+
+);
+
+
+
+if(
+
+!exists
+
+){
+
+
+pgAnswers.push(
+
+{
+
+question_id:
+item.id,
+
+answer:
+item.options[
+pick
+]
+
+}
+
+);
+
+
+}
+
+
+}
+
+
+
+if(
+
+item?.type ===
+"essay"
+
+){
+
+
+essayAnswer =
+
+$("essayInput")
+.value
+.trim();
+
+
+}
+
+
+
+$("next").disabled =
+true;
+
+
+$("next").textContent =
+
+"Mengirim…";
+
+
+$("examError").textContent =
+"";
+
+
+
+try{
+
+
+const data =
+
+await rpc(
+
+"submit_week6_trial",
+
+{
+
+p_attempt_id:
+attemptId,
+
+p_answers:
+pgAnswers,
+
+p_essay_answer:
+essayAnswer,
+
+p_tab_violations:
+viol,
+
+p_submit_reason:
+reason
+
+}
+
+);
+
+
+
+document
+.body
+.classList
+.remove(
+"exam"
+);
+
+
+
+$("overlay")
+.classList
+.add(
+"hidden"
+);
+
+
+
+$("exam")
+.classList
+.add(
+"hidden"
+);
+
+
+
+$("result")
+.classList
+.remove(
+"hidden"
+);
+
+
+
+$("score").textContent =
+
+`PG: ${data.score_pg} / ${data.total_pg}`;
+
+
+
+$("submissionId").textContent =
+
+"Submission ID: "
+
++
+
+data.attempt_id;
+
+
+
+$("resultMsg").textContent =
+
+"Jawaban berhasil tersimpan di Supabase.";
+
+
+
+try{
+
+
+if(
+
+document.fullscreenElement
+
+){
+
+
+document
+.exitFullscreen();
+
+
+}
+
+
+}
+
+catch(e){
+
+}
+
+
+}
+
+
+catch(err){
+
+
+done =
+false;
+
+
+started =
+true;
+
+
+
+$("examError").textContent =
+
+"Submit gagal: "
+
++
+
+err.message
+
++
+
+". Jangan tutup halaman; coba Submit lagi.";
+
+
+
+$("next").disabled =
+false;
+
+
+$("next").textContent =
+
+"Coba Submit Lagi";
+
+
+}
+
+
+}
+
+
+
+/* =========================================
+   TAB SWITCH DETECTION
+========================================= */
+
+
+document
+.addEventListener(
+
+"visibilitychange",
+
+()=>{
+
+
+if(
+
+!started ||
+done
+
+){
+
+return;
+
+}
+
+
+
+if(
+
+document.hidden
+
+){
+
+
+viol++;
+
+
+$("viol").textContent =
+viol;
+
+
+
+if(
+
+viol >=
+CFG.maxViol
+
+){
+
+
+finish(
+
+"Batas perpindahan tab tercapai — submit otomatis"
+
+);
+
+
+}
+
+
+else{
+
+
+pendingWarn =
+true;
+
+
+}
+
+
+}
+
+
+else if(
+
+pendingWarn &&
+!done
+
+){
+
+
+pendingWarn =
+false;
+
+
+
+$("warnText").textContent =
+
+`Perpindahan tab ke-${viol} tercatat. Pada perpindahan ke-${CFG.maxViol}, kuis akan disubmit otomatis.`;
+
+
+
+$("overlay")
+.classList
+.remove(
+"hidden"
+);
+
+
+}
+
+
+}
+
+);
+
+
+
+$("backBtn").onclick =
+
+()=>{
+
+
+$("overlay")
+.classList
+.add(
+"hidden"
+);
+
+
+
+try{
+
+
+document
+.documentElement
+.requestFullscreen?.();
+
+
+}
+
+catch(e){
+
+}
+
+
+};
+
+
+
+/* =========================================
+   BASIC ANTI-COPY
+========================================= */
+
+
+[
+"contextmenu",
+"copy",
+"cut",
+"paste"
+
+].forEach(
+
+ev =>{
+
+
+document
+.addEventListener(
+
+ev,
+
+e =>{
+
+
+if(
+
+started &&
+!done
+
+){
+
+
+e.preventDefault();
+
+
+}
+
+
+}
+
+);
+
+
+}
+
+);
+
+
+
+document
+.addEventListener(
+
+"keydown",
+
+e =>{
+
+
+if(
+
+!started ||
+done
+
+){
+
+return;
+
+}
+
+
+
+const k =
+
+e.key
+.toLowerCase();
+
+
+
+if(
+
+e.key ===
+"F12"
+
+||
+
+(
+e.ctrlKey &&
+[
+"c",
+"u",
+"s",
+"p"
+
+].includes(
+k
+)
+
+)
+
+||
+
+(
+e.ctrlKey &&
+e.shiftKey &&
+[
+"i",
+"j",
+"c"
+
+].includes(
+k
+)
+
+)
+
+){
+
+
+e.preventDefault();
+
+
+}
+
+
+}
+
+);
+
+
+
+/* =========================================
+   CLOSE PAGE WARNING
+========================================= */
+
+
+window
+.addEventListener(
+
+"beforeunload",
+
+e =>{
+
+
+if(
+
+started &&
+!done
+
+){
+
+
+e.preventDefault();
+
+
+e.returnValue =
+"";
+
+
+}
+
+
+}
+
+);
+
+
 </script>
+
+
 </body>
+
 </html>
